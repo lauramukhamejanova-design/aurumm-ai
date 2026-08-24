@@ -1263,6 +1263,18 @@
       return '<a href="' + safeUrl + '" target="_blank" rel="noopener noreferrer">' + safeUrl + '</a>';
     });
   }
+    function addMsg(role, text) {
+    const el = document.createElement('div');
+    el.className = 'aiw-msg ' + (role === 'user' ? 'user' : 'bot');
+    if (role === 'user') {
+      el.textContent = text;
+    } else {
+      el.innerHTML = linkify(text);
+    }
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+    return el;
+  }
   function showTyping() {
     const el = document.createElement('div');
     el.className = 'aiw-msg bot typing';

@@ -1,0 +1,139 @@
+// Netlify serverless function — proxies chat messages to the Claude API.
+// The API key lives ONLY here, as a server-side environment variable
+// (ANTHROPIC_API_KEY), never in the page's HTML/JS. This is what keeps the
+// key safe from visitors viewing page source.
+
+const SYSTEM_PROMPT = `Ты — Айгерим, AI-консультант компании Aurum AI на её сайте.
+Ты честно представляешься AI-ассистентом, если тебя об этом спрашивают, и никогда не притворяешься живым человеком.
+
+О компании:
+- Aurum AI — платформа из 8 AI-агентов, которые автоматизируют общение с клиентами для бизнеса: приём заявок, запись, ответы на частые вопросы, рассылки, работа с отзывами, квалификация лидов и т.д.
+- Работает в WhatsApp, Instagram и на сайте клиента.
+- Изначально делали для медицинских клиник (основательница — врач, руководит отделением клиники), сейчас работают с любым видом бизнеса.
+- Есть подтверждённые клиенты (клиники в Казахстане и Узбекистане), большинство работает на условиях NDA, поэтому конкретные названия и подробные цифры по клиентам ты не называешь и не придумываешь.
+- Цена не фиксирована на сайте специально — озвучивается индивидуально после короткого созвона в WhatsApp, зависит от количества агентов и сложности настройки.
+- Контакт для перехода к живому обсуждению и оплаты: WhatsApp +7 707 505 88 34 (ссылка: https://wa.me/77075058834).
+
+Частые вопросы и как на них отвечать:
+- «Сколько времени занимает подключение?» — Обычно 1–3 недели от оплаты до запуска, точный срок зависит от количества агентов и сложности настройки.
+- «Можно ли взять не всех агентов сразу?» — Да, можно подключить 1–2 агента для старта и расширять по мере необходимости.
+- «Что нужно от нас для подключения?» — Со стороны клиента нужен свой номер WhatsApp и доступ к CRM (если она уже используется).
+- «Какой срок контракта, можно ли отказаться?» — Жёсткого минимального срока нет, но при отказе нужно предупредить письменно за 10 рабочих дней; уже оплаченные средства за текущий период не возвращаются — подробности в Публичной оферте на сайте.
+- «Чем вы отличаетесь от обычных чат-ботов?» — Aurum AI создавали не программисты «для галочки», а команда, которая сама управляет клиникой и знает, где реально теряются клиенты; агент понимает контекст диалога, а не просто отвечает шаблонами.
+- «Если агент не справится с вопросом?» — Диалог передаётся живому сотруднику клиента, переписка не обрывается — человек просто подключается.
+- «Как у вас с безопасностью данных?» — Данные хранятся на серверах в Казахстане, передаются в зашифрованном виде, доступ ограничен; подробности — в Политике конфиденциальности на сайте.
+
+Как отвечать:
+- Пиши по-русски, тепло, живо, по-деловому — короткие абзацы, без канцелярита.
+- Отвечай только на то, что реально знаешь из этого описания. Если не знаешь ответа (точные цифры, детали интеграции, юридические тонкости) — честно скажи, что уточнишь, и предложи написать в WhatsApp.
+- Никогда не придумывай цифры результатов, имена клиентов или гарантии, которых нет выше.
+- Цель — помочь человеку понять, подходит ли ему Aurum AI, и мягко подвести к следующему шагу: написать в WhatsApp для расчёта стоимости и деталей.
+- Не будь навязчивой — предлагай WhatsApp естественно, не в каждом сообщении.`;
+
+// Sends a WhatsApp notification to the business owner via CallMeBot
+// (https://www.callmebot.com/blog/free-api-whatsapp-messages/) when a new
+// visitor starts a conversation with the widget. Best-effort: failures here
+// never block or break the visitor's chat experience.
+const OWNER_WHATSAPP_PHONE = '77075058834';
+
+async function notifyOwner(firstMessage) {
+  const apiKey = process.env.CALLMEBOT_API_KEY;
+  if (!apiKey) return; // notifications not configured yet — silently skip
+
+  const text = `Новый посетитель сайта пишет боту Айгерим:\n\n«${firstMessage.slice(0, 300)}»`;
+  const url = `https://api.callmebot.com/whatsapp.php?phone=${OWNER_WHATSAPP_PHONE}&text=${encodeURIComponent(text)}&apikey=${apiKey}`;
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+  try {
+    await fetch(url, { signal: controller.signal });
+  } catch (e) {
+    console.error('CallMeBot notify failed:', e);
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+exports.handler = async (event) => {
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
+  }
+
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    return {
+      statusCode: 500,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'ANTHROPIC_API_KEY is not configured on the server.' })
+    };
+  }
+
+  let payload;
+  try {
+    payload = JSON.parse(event.body || '{}');
+  } catch (e) {
+    return { statusCode: 400, body: 'Invalid JSON' };
+  }
+
+  const incoming = Array.isArray(payload.messages) ? payload.messages : [];
+  // Keep only the last 12 turns to bound cost/latency, and only role+content.
+  const messages = incoming
+    .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
+    .slice(-12)
+    .map((m) => ({ role: m.role, content: m.content.slice(0, 4000) }));
+
+  if (messages.length === 0) {
+    return { statusCode: 400, body: 'No messages provided' };
+  }
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        // Cheap, fast model — good fit for a website chat widget.
+        // See https://docs.claude.com/en/docs/about-claude/models for current options.
+        model: 'claude-3-5-haiku-20241022',
+        max_tokens: 500,
+        system: SYSTEM_PROMPT,
+        messages
+      })
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error('Anthropic API error:', res.status, errText);
+      return {
+        statusCode: 502,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: 'Upstream API error' })
+      };
+    }
+
+    const data = await res.json();
+    const reply = (data.content && data.content[0] && data.content[0].text) || '';
+
+    // Notify the owner only when this is the start of a new conversation
+    // (a single user message, no prior turns) — not on every reply.
+    if (messages.length === 1) {
+      await notifyOwner(messages[0].content);
+    }
+
+    return {
+      statusCode: 200,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ reply })
+    };
+  } catch (e) {
+    console.error('Chat function error:', e);
+    return {
+      statusCode: 500,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Server error' })
+    };
+  }
+};

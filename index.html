@@ -1179,7 +1179,7 @@
   .aiw-body{ flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px; background:var(--bg-soft); }
   .aiw-msg{ max-width:85%; padding:9px 12px; border-radius:12px; font-size:13.5px; line-height:1.5; white-space:pre-wrap; }
   .aiw-msg.bot{ background:#fff; border:1px solid var(--card-border); align-self:flex-start; border-bottom-left-radius:3px; }
-  .aiw-msg.bot a{ color:var(--gold-deep); font-weight:700; text-decoration:underline; }.aiw-msg.user{ background:var(--ink); color:#fff; align-self:flex-end; border-bottom-right-radius:3px; }
+  .aiw-msg.user{ background:var(--ink); color:#fff; align-self:flex-end; border-bottom-right-radius:3px; }
   .aiw-msg.typing{ display:flex; gap:4px; align-items:center; padding:11px 14px; }
   .aiw-msg.typing span{ width:6px; height:6px; border-radius:50%; background:var(--ink-faint); animation:aiwBlink 1.2s infinite ease-in-out; }
   .aiw-msg.typing span:nth-child(2){ animation-delay:.2s; }
@@ -1231,32 +1231,15 @@
 </div>
 
 <script>
-  function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
+(function() {
+  const btn = document.getElementById('aiWidgetBtn');
+  const panel = document.getElementById('aiWidgetPanel');
+  const closeBtn = document.getElementById('aiWidgetClose');
+  const body = document.getElementById('aiWidgetBody');
+  const input = document.getElementById('aiWidgetInput');
+  const sendBtn = document.getElementById('aiWidgetSend');
+  if (!btn || !panel) return;
 
-  function linkify(text) {
-    const urlPattern = /(https?:\/\/[^\s<]+[^\s<.,:;!?)"'])/g;
-    return escapeHtml(text).replace(urlPattern, (url) => {
-      const safeUrl = escapeHtml(url).replace(/&amp;/g, '&');
-      return '<a href="' + safeUrl + '" target="_blank" rel="noopener noreferrer">' + safeUrl + '</a>';
-    });
-  }
-
-  function addMsg(role, text) {
-    const el = document.createElement('div');
-    el.className = 'aiw-msg ' + (role === 'user' ? 'user' : 'bot');
-    if (role === 'user') {
-      el.textContent = text;
-    } else {
-      el.innerHTML = linkify(text);
-    }
-    body.appendChild(el);
-    body.scrollTop = body.scrollHeight;
-    return el;
-  }
   let history = [];
   let busy = false;
 

@@ -97,7 +97,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         // Cheap, fast model — good fit for a website chat widget.
         // See https://docs.claude.com/en/docs/about-claude/models for current options.
-        model: 'claude-3-5-haiku-20241022',
+        model: 'claude-haiku-4-5',
         max_tokens: 500,
         system: SYSTEM_PROMPT,
         messages

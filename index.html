@@ -197,6 +197,15 @@
   .node svg{width:24px; height:24px; color:var(--gold-deep);}
   @keyframes floatNode{0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);}}
 
+  /* Audience switch (business / clinic) */
+  .aud-switch{display:inline-flex; gap:6px; background:var(--bg-soft); border:1px solid var(--card-border); border-radius:999px; padding:5px; margin-top:20px;}
+  .aud-btn{font-family:inherit; font-size:13.5px; font-weight:700; padding:9px 20px; border-radius:999px; border:none; background:none; color:var(--ink-dim); cursor:pointer; transition:background .2s ease, color .2s ease, box-shadow .2s ease;}
+  .aud-btn:hover{color:var(--ink);}
+  .aud-btn.active{background:linear-gradient(135deg, var(--gold-bright), var(--gold-deep)); color:#fff; box-shadow:0 6px 16px rgba(150,105,44,0.28);}
+  body[data-audience="clinic"] .aud-biz{display:none !important;}
+  body[data-audience="biz"] .aud-clinic{display:none !important;}
+  body:not([data-audience]) .aud-clinic{display:none !important;}
+
   /* Capabilities/Agents (kept) */
   .agents-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:20px;}
   .agent-card{
@@ -459,14 +468,17 @@
     <div class="wrap hero-grid">
       <div>
         <div class="eyebrow">Aurum AI · платформа AI-автоматизации для бизнеса</div>
-        <h1>AI-продавец, который отвечает вашим клиентам <em>быстрее, чем конкуренты</em></h1>
-        <p class="lead">Команда из 8 AI-агентов консультирует клиентов, доводит их до сделки, ведёт соцсети, контролирует качество общения и показывает, кто из сотрудников реально приносит бизнесу деньги. Начинали с медицины — сегодня так же работаем с любым бизнесом.</p>
+        <h1 class="aud-biz">AI-продавец, который отвечает вашим клиентам <em>быстрее, чем конкуренты</em></h1>
+        <h1 class="aud-clinic">AI-администратор, который отвечает вашим пациентам <em>быстрее, чем конкуренты</em></h1>
+        <p class="lead aud-biz">Команда из 8 AI-агентов консультирует клиентов, доводит их до сделки, ведёт соцсети, контролирует качество общения и показывает, кто из сотрудников реально приносит бизнесу деньги. Начинали с медицины — сегодня так же работаем с любым бизнесом.</p>
+        <p class="lead aud-clinic">Команда из 9 AI-агентов консультирует пациентов, доводит их до записи на приём, ведёт соцсети, контролирует качество общения и показывает, кто из сотрудников реально приносит клинике деньги. Специализируемся на медицинских клиниках — это наша основная отрасль.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="https://wa.me/77075058834?text=Здравствуйте!%20Хочу%20узнать%20про%20Aurum%20AI%20для%20моего%20бизнеса" target="_blank" rel="noopener">Обсудить в WhatsApp</a>
           <a class="btn btn-ghost" href="#agents">Смотреть агентов ↓</a>
         </div>
         <div class="hero-channels">
-          <span class="lbl">Работает там, где ваши клиенты:</span>
+          <span class="lbl aud-biz">Работает там, где ваши клиенты:</span>
+          <span class="lbl aud-clinic">Работает там, где ваши пациенты:</span>
         </div>
         <div class="chip-row" style="margin-top:10px;">
           <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>Instagram</div>
@@ -483,9 +495,11 @@
         <div class="bubble bubble-in">Четверг подойдёт</div>
         <div class="bubble bubble-out bubble-typing"><span></span><span></span><span></span></div>
         <div class="mockup-stats">
-          <div class="mockup-stat"><b>8</b><span>AI-агентов</span></div>
+          <div class="mockup-stat aud-biz"><b>8</b><span>AI-агентов</span></div>
+          <div class="mockup-stat aud-clinic"><b>9</b><span>AI-агентов</span></div>
           <div class="mockup-stat"><b>24/7</b><span>без выходных</span></div>
-          <div class="mockup-stat"><b>8</b><span>клиник</span></div>
+          <div class="mockup-stat aud-clinic"><b>8</b><span>клиник</span></div>
+          <div class="mockup-stat aud-biz"><b>8</b><span>компаний</span></div>
         </div>
       </div>
     </div>
@@ -502,18 +516,21 @@
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow">Знакомая ситуация?</div>
-        <h2>Бизнес теряет клиентов не из-за конкурентов, а из-за скорости ответа</h2>
+        <h2 class="aud-biz">Бизнес теряет клиентов не из-за конкурентов, а из-за скорости ответа</h2>
+        <h2 class="aud-clinic">Клиника теряет пациентов не из-за конкурентов, а из-за скорости ответа</h2>
       </div>
       <div class="grid-3 stagger reveal">
         <div class="pain-card">
           <div class="num">01</div>
           <h3>Заявка остыла, пока администратор освободился</h3>
-          <p>Клиент написал в Instagram или WhatsApp вечером — ответили утром. Он уже купил у конкурента.</p>
+          <p class="aud-biz">Клиент написал в Instagram или WhatsApp вечером — ответили утром. Он уже купил у конкурента.</p>
+          <p class="aud-clinic">Пациент написал в Instagram или WhatsApp вечером — ответили утром. Он уже записался к конкуренту.</p>
         </div>
         <div class="pain-card">
           <div class="num">02</div>
           <h3>Нет понимания, кто из сотрудников реально работает на результат</h3>
-          <p>Обращения есть, а данных — сколько клиентов возвращается, сколько доходит до сделки — нет.</p>
+          <p class="aud-biz">Обращения есть, а данных — сколько клиентов возвращается, сколько доходит до сделки — нет.</p>
+          <p class="aud-clinic">Обращения есть, а данных — сколько пациентов возвращается, сколько доходит до приёма — нет.</p>
         </div>
         <div class="pain-card">
           <div class="num">03</div>
@@ -528,8 +545,10 @@
     <div class="wrap reveal">
       <div class="stats-band">
         <div class="wrap-inner">
-          <div><div class="stat-num">8</div><div class="stat-label">AI-агентов в продукте</div></div>
-          <div><div class="stat-num">8</div><div class="stat-label">клиник уже работают с Aurum AI</div></div>
+          <div class="aud-biz"><div class="stat-num">8</div><div class="stat-label">AI-агентов в продукте</div></div>
+          <div class="aud-clinic"><div class="stat-num">9</div><div class="stat-label">AI-агентов в продукте</div></div>
+          <div class="aud-clinic"><div class="stat-num">8</div><div class="stat-label">клиник уже работают с Aurum AI</div></div>
+          <div class="aud-biz"><div class="stat-num">8</div><div class="stat-label">компаний уже работают с Aurum AI</div></div>
           <div><div class="stat-num">24/7</div><div class="stat-label">без выходных и обеда</div></div>
           <div><div class="stat-num">1 день</div><div class="stat-label">на ответ техподдержки</div></div>
         </div>
@@ -588,7 +607,8 @@
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow">Возможности</div>
-        <h2>Почему бизнес выбирает Aurum AI, а не очередной чат-бот</h2>
+        <h2 class="aud-biz">Почему бизнес выбирает Aurum AI, а не очередной чат-бот</h2>
+        <h2 class="aud-clinic">Почему клиники выбирают Aurum AI, а не очередной чат-бот</h2>
       </div>
       <div class="grid-6 stagger reveal">
         <div class="cap-card">
@@ -599,7 +619,8 @@
         <div class="cap-card">
           <div class="cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
           <h3>Живая речь</h3>
-          <p>Клиенты часто не понимают, что общаются с AI — это снимает недоверие к типовым ботам.</p>
+          <p class="aud-biz">Клиенты часто не понимают, что общаются с AI — это снимает недоверие к типовым ботам.</p>
+          <p class="aud-clinic">Пациенты часто не понимают, что общаются с AI — это снимает недоверие к типовым ботам.</p>
         </div>
         <div class="cap-card">
           <div class="cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
@@ -609,17 +630,20 @@
         <div class="cap-card">
           <div class="cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg></div>
           <h3>Ответ в тот же день</h3>
-          <p>Техподдержка решает вопросы без многодневных очередей — критично, когда на линии живые клиенты.</p>
+          <p class="aud-biz">Техподдержка решает вопросы без многодневных очередей — критично, когда на линии живые клиенты.</p>
+          <p class="aud-clinic">Техподдержка решает вопросы без многодневных очередей — критично, когда на линии живые пациенты.</p>
         </div>
         <div class="cap-card">
           <div class="cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
           <h3>Автонапоминания</h3>
-          <p>Aurum Pulse сам возвращает клиентов на повторную покупку и допродажи.</p>
+          <p class="aud-biz">Aurum Pulse сам возвращает клиентов на повторную покупку и допродажи.</p>
+          <p class="aud-clinic">Aurum Pulse сам возвращает пациентов на повторный приём.</p>
         </div>
         <div class="cap-card">
           <div class="cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-6 4 4 5-8"/></svg></div>
           <h3>Аналитика и контроль</h3>
-          <p>Aurum Check и Aurum Radar показывают качество общения и воронку продаж в реальном времени.</p>
+          <p class="aud-biz">Aurum Radar показывает качество общения и воронку продаж в реальном времени.</p>
+          <p class="aud-clinic">Aurum Radar показывает качество общения и воронку приёма пациентов в реальном времени.</p>
         </div>
       </div>
     </div>
@@ -629,8 +653,14 @@
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow">Продукт</div>
-        <h2>8 AI-агентов — как отдел продаж, маркетинга и контроля качества в одном</h2>
-        <p>Каждый агент решает свою задачу и говорит с клиентами живым языком — независимо от вашей сферы. Нажмите «Смотреть демо» на карточке — это иллюстрация того, как агент работает, не запись реального диалога.</p>
+        <h2 class="aud-biz">8 AI-агентов — как отдел продаж, маркетинга и контроля качества в одном</h2>
+        <h2 class="aud-clinic">9 AI-агентов — как отдел продаж, маркетинга и контроля качества в одном</h2>
+        <p class="aud-biz">Каждый агент решает свою задачу и говорит с клиентами живым языком — независимо от вашей сферы. Нажмите «Смотреть демо» на карточке — это иллюстрация того, как агент работает, не запись реального диалога.</p>
+        <p class="aud-clinic">Каждый агент решает свою задачу и говорит с пациентами живым языком. Нажмите «Смотреть демо» на карточке — это иллюстрация того, как агент работает, не запись реального диалога.</p>
+        <div class="aud-switch" id="audSwitch">
+          <button type="button" class="aud-btn" data-aud="biz">Для бизнеса</button>
+          <button type="button" class="aud-btn" data-aud="clinic">Для клиник</button>
+        </div>
       </div>
       <div class="agents-grid stagger reveal">
 
@@ -645,7 +675,8 @@
           </div>
           <div class="role">Рассыльщик</div>
           <h3>Aurum Pulse</h3>
-          <p>Автоматические рассылки и напоминания, которые возвращают клиентов на повторную покупку.</p>
+          <p class="aud-biz">Автоматические рассылки и напоминания, которые возвращают клиентов на повторную покупку.</p>
+          <p class="aud-clinic">Автоматические рассылки и напоминания о приёме, которые возвращают пациентов на повторный визит.</p>
           <button class="demo-toggle" type="button">Смотреть демо <span class="demo-arrow">▾</span></button>
           <div class="agent-demo"><div class="agent-demo-inner"><div class="demo-mini-label">Рассылка «Напоминание о записи»</div><div class="demo-progress-track"><div class="demo-progress-fill"></div></div><div class="demo-progress-text">Отправлено 214 из 240</div><div class="demo-chip-row"><span class="demo-chip-mini">Instagram</span><span class="demo-chip-mini">WhatsApp</span></div></div></div>
         </div>
@@ -662,9 +693,11 @@
               <rect class="bar bar5" x="49" y="27" width="4" height="9" rx="2" fill="#8a6d1f"/>
             </svg>
           </div>
-          <div class="role">Консультант</div>
+          <div class="role aud-biz">Консультант</div>
+          <div class="role aud-clinic">ИИ-консультант врача</div>
           <h3>Aurum Echo</h3>
-          <p>Отвечает на вопросы клиентов и доводит их до сделки — днём и ночью, без пауз.</p>
+          <p class="aud-biz">Отвечает на вопросы клиентов и доводит их до сделки — днём и ночью, без пауз.</p>
+          <p class="aud-clinic">Отвечает на вопросы пациентов от имени клиники — как будто с ними говорит сам врач — и доводит их до записи на приём, днём и ночью, без пауз.</p>
           <button class="demo-toggle" type="button">Смотреть демо <span class="demo-arrow">▾</span></button>
           <div class="agent-demo"><div class="agent-demo-inner"><div class="bubble bubble-in mini">Здравствуйте! Сколько стоит первая консультация?</div><div class="bubble bubble-out mini">Добрый день! Первая консультация — 10 000 ₸. Записать вас на удобное время?</div></div></div>
         </div>
@@ -683,26 +716,10 @@
           </div>
           <div class="role">SMM</div>
           <h3>Aurum Social</h3>
-          <p>Ведёт соцсети бизнеса: контент, вовлечение и присутствие, пока у команды нет на это времени.</p>
+          <p class="aud-biz">Ведёт соцсети бизнеса: контент, вовлечение и присутствие, пока у команды нет на это времени.</p>
+          <p class="aud-clinic">Ведёт соцсети клиники: контент, вовлечение и присутствие, пока у команды нет на это времени.</p>
           <button class="demo-toggle" type="button">Смотреть демо <span class="demo-arrow">▾</span></button>
           <div class="agent-demo"><div class="agent-demo-inner"><div class="demo-post"><div class="demo-post-img"></div><div class="demo-post-meta">Пост опубликован автоматически · сегодня, 10:00</div><div class="demo-post-stats">❤ 128 · 💬 14 · 👁 2 400</div></div></div></div>
-        </div>
-
-        <div class="agent-card">
-          <div class="agent-icon-wrap icon-flow">
-            <svg viewBox="0 0 72 72" fill="none">
-              <rect x="15" y="18" width="42" height="34" rx="6" stroke="#8a6d1f" stroke-width="1.4"/>
-              <line x1="15" y1="27" x2="57" y2="27" stroke="#8a6d1f" stroke-width="1.4"/>
-              <line x1="25" y1="13" x2="25" y2="21" stroke="#8a6d1f" stroke-width="1.4" stroke-linecap="round"/>
-              <line x1="47" y1="13" x2="47" y2="21" stroke="#8a6d1f" stroke-width="1.4" stroke-linecap="round"/>
-              <path class="flow-path" d="M23 38 L31 46 L49 31" stroke="#8a6d1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="role">Менеджер</div>
-          <h3>Aurum Flow</h3>
-          <p>Управляет записями и заявками, чтобы ни один слот и ни один клиент не терялись.</p>
-          <button class="demo-toggle" type="button">Смотреть демо <span class="demo-arrow">▾</span></button>
-          <div class="agent-demo"><div class="agent-demo-inner"><div class="demo-slots"><span class="demo-slot">10:00</span><span class="demo-slot busy">11:00</span><span class="demo-slot picked">12:00 ✓</span><span class="demo-slot">14:00</span></div><div class="demo-mini-label">Слот 12:00 забронирован автоматически</div></div></div>
         </div>
 
         <div class="agent-card">
@@ -716,24 +733,10 @@
           </div>
           <div class="role">Таргетолог</div>
           <h3>Aurum Target</h3>
-          <p>Настраивает и ведёт рекламу так, чтобы заявки не стоили дороже, чем сама сделка.</p>
+          <p class="aud-biz">Настраивает и ведёт рекламу так, чтобы заявки не стоили дороже, чем сама сделка.</p>
+          <p class="aud-clinic">Настраивает и ведёт рекламу так, чтобы заявки на приём не стоили дороже, чем сам приём.</p>
           <button class="demo-toggle" type="button">Смотреть демо <span class="demo-arrow">▾</span></button>
           <div class="agent-demo"><div class="agent-demo-inner"><div class="demo-metric-row"><div class="demo-metric"><b>−34%</b><span>цена заявки за месяц</span></div><div class="demo-metric"><b>3.1×</b><span>рост кликабельности</span></div></div></div></div>
-        </div>
-
-        <div class="agent-card">
-          <div class="agent-icon-wrap icon-check">
-            <svg viewBox="0 0 72 72" fill="none">
-              <path d="M36 14 L54 20 V35 C54 46 46 53 36 57 C26 53 18 46 18 35 V20 Z" stroke="#8a6d1f" stroke-width="1.4"/>
-              <path class="check-path" d="M27 36 L34 43 L47 28" stroke="#8a6d1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <line class="scan-line" x1="21" y1="30" x2="51" y2="30" stroke="#8a6d1f" stroke-width="1"/>
-            </svg>
-          </div>
-          <div class="role">Супервизор</div>
-          <h3>Aurum Check</h3>
-          <p>Проверяет качество коммуникации с клиентами и подсвечивает, где теряются заявки.</p>
-          <button class="demo-toggle" type="button">Смотреть демо <span class="demo-arrow">▾</span></button>
-          <div class="agent-demo"><div class="agent-demo-inner"><div class="demo-check-item"><span class="check-ico">✓</span>Ответ дан в течение 2 минут</div><div class="demo-check-item"><span class="check-ico">✓</span>Тон общения соответствует стандарту</div><div class="demo-check-item warn"><span class="check-ico">!</span>Не предложена запись — заявка на проверку</div></div></div>
         </div>
 
         <div class="agent-card">
@@ -753,24 +756,83 @@
           </div>
           <div class="role">РОП</div>
           <h3>Aurum Radar</h3>
-          <p>Аналитика продаж и воронки бизнеса в реальном времени — включая аналитику Aurum Compass.</p>
+          <p class="aud-biz">Аналитика продаж и воронки бизнеса в реальном времени — включая аналитику Aurum Compass.</p>
+          <p class="aud-clinic">Аналитика приёма пациентов и воронки клиники в реальном времени — включая аналитику Aurum Compass.</p>
           <button class="demo-toggle" type="button">Смотреть демо <span class="demo-arrow">▾</span></button>
-          <div class="agent-demo"><div class="agent-demo-inner"><div class="dash-row mini"><div class="name">Выполнение плана</div><div class="dash-bar-track"><div class="dash-bar-fill" style="--w:72%"></div></div><div class="val">72%</div></div><div class="dash-row mini"><div class="name">Новые сделки</div><div class="dash-bar-track"><div class="dash-bar-fill" style="--w:58%"></div></div><div class="val">58%</div></div></div></div>
+          <div class="agent-demo aud-biz"><div class="agent-demo-inner"><div class="dash-row mini"><div class="name">Выполнение плана</div><div class="dash-bar-track"><div class="dash-bar-fill" style="--w:72%"></div></div><div class="val">72%</div></div><div class="dash-row mini"><div class="name">Новые сделки</div><div class="dash-bar-track"><div class="dash-bar-fill" style="--w:58%"></div></div><div class="val">58%</div></div></div></div>
+          <div class="agent-demo aud-clinic"><div class="agent-demo-inner"><div class="dash-row mini"><div class="name">Выполнение плана</div><div class="dash-bar-track"><div class="dash-bar-fill" style="--w:72%"></div></div><div class="val">72%</div></div><div class="dash-row mini"><div class="name">Новые пациенты</div><div class="dash-bar-track"><div class="dash-bar-fill" style="--w:58%"></div></div><div class="val">58%</div></div></div></div>
         </div>
 
         <div class="agent-card">
-          <div class="agent-icon-wrap icon-insight">
+          <div class="agent-icon-wrap icon-mind">
             <svg viewBox="0 0 72 72" fill="none">
-              <path d="M15 36 C21 23 51 23 57 36 C51 49 21 49 15 36 Z" stroke="#8a6d1f" stroke-width="1.4"/>
-              <circle class="pupil" cx="36" cy="36" r="6.2" fill="#8a6d1f"/>
-              <line class="scan-line-x" x1="36" y1="20" x2="36" y2="52" stroke="#8a6d1f" stroke-width="1"/>
+              <path d="M36 15 C24 15 17 24 17 33 C17 40 21 44 24 47 V54 C24 56 26 58 28 58 H44 C46 58 48 56 48 54 V47 C51 44 55 40 55 33 C55 24 48 15 36 15 Z" stroke="#8a6d1f" stroke-width="1.4"/>
+              <line x1="29" y1="52" x2="43" y2="52" stroke="#8a6d1f" stroke-width="1.4"/>
+              <circle class="pulse-dot" cx="30" cy="32" r="2.2" fill="#8a6d1f"/>
+              <circle class="pulse-dot" cx="36" cy="26" r="2.2" fill="#8a6d1f"/>
+              <circle class="pulse-dot" cx="42" cy="32" r="2.2" fill="#8a6d1f"/>
+              <line x1="30" y1="32" x2="36" y2="26" stroke="#8a6d1f" stroke-width="1"/>
+              <line x1="36" y1="26" x2="42" y2="32" stroke="#8a6d1f" stroke-width="1"/>
+              <line x1="30" y1="32" x2="42" y2="32" stroke="#8a6d1f" stroke-width="1"/>
             </svg>
           </div>
-          <div class="role">Экспертиза встреч</div>
-          <h3>Aurum Insight</h3>
-          <p>Разбирает, как сотрудник ведёт диалог с клиентом, и показывает, что можно улучшить — на основе реальных данных. Изначально сделан под приёмы врачей, легко адаптируется под любые переговоры.</p>
+          <div class="role aud-biz">База знаний для команды</div>
+          <div class="role aud-clinic">База знаний для персонала клиники</div>
+          <h3>Aurum Mind</h3>
+          <p class="aud-biz">Знает всё о вашем бизнесе — услуги, цены, регламенты, процессы — и мгновенно отвечает сотрудникам, вместо того чтобы каждый раз отвлекать коллег или руководителя.</p>
+          <p class="aud-clinic">Знает всё о клинике — протоколы приёма, цены, регламенты — и помогает сотруднику быстро сориентироваться в рабочей ситуации, не отвлекая коллег.</p>
           <button class="demo-toggle" type="button">Смотреть демо <span class="demo-arrow">▾</span></button>
-          <div class="agent-demo"><div class="agent-demo-inner"><div class="demo-transcript">«...в целом всё в порядке, следующая встреча по плану.»</div><div class="demo-suggestion">💡 Совет: уточнить дополнительный запрос клиента — шанс на допродажу</div></div></div>
+          <div class="agent-demo aud-biz"><div class="agent-demo-inner"><div class="demo-mini-label">Вопрос нового сотрудника</div><div class="bubble bubble-in mini">Какой у нас регламент возврата предоплаты?</div><div class="bubble bubble-out mini">Смотрю в базе знаний компании… Предоплата возвращается в течение 3 рабочих дней, если клиент отменил заявку не позднее чем за сутки.</div></div></div>
+          <div class="agent-demo aud-clinic"><div class="agent-demo-inner"><div class="demo-mini-label">Вопрос нового администратора</div><div class="bubble bubble-in mini">Какие документы нужны для оформления рассрочки на лечение?</div><div class="bubble bubble-out mini">Смотрю в базе знаний клиники… Нужны удостоверение личности и договор с клиникой, оформляется в регистратуре за 10 минут.</div></div></div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-icon-wrap icon-voice">
+            <svg viewBox="0 0 72 72" fill="none">
+              <path d="M24 20 C24 17 27 15 30 16 L34 25 C35 27 34 29 33 30 L30 32 C32 38 36 42 42 44 L44 41 C45 40 47 39 49 40 L58 44 C61 45 62 49 60 51 L57 54 C54 57 49 58 44 56 C34 52 26 44 22 34 C20 29 21 24 24 20 Z" stroke="#8a6d1f" stroke-width="1.4"/>
+              <path class="scan-line-x" d="M46 18 C50 18 53 21 53 25" stroke="#8a6d1f" stroke-width="1.2" stroke-linecap="round"/>
+              <path class="scan-line-x" d="M46 12 C54 12 60 18 60 26" stroke="#8a6d1f" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
+            </svg>
+          </div>
+          <div class="role">Колл-центр</div>
+          <h3>Aurum Voice</h3>
+          <p class="aud-biz">Отвечает на входящие звонки голосом, консультирует и записывает клиента — линия не занята и не пропускает вызовы.</p>
+          <p class="aud-clinic">Отвечает на входящие звонки голосом, консультирует и записывает пациента на приём — линия не занята и не пропускает вызовы.</p>
+          <button class="demo-toggle" type="button">Смотреть демо <span class="demo-arrow">▾</span></button>
+          <div class="agent-demo aud-biz"><div class="agent-demo-inner"><div class="demo-check-item"><span class="check-ico">✓</span>Входящий звонок принят за 2 секунды</div><div class="demo-check-item"><span class="check-ico">✓</span>Клиент записан на удобное время</div></div></div>
+          <div class="agent-demo aud-clinic"><div class="agent-demo-inner"><div class="demo-check-item"><span class="check-ico">✓</span>Входящий звонок принят за 2 секунды</div><div class="demo-check-item"><span class="check-ico">✓</span>Пациент записан на приём</div></div></div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-icon-wrap icon-rank">
+            <svg viewBox="0 0 72 72" fill="none">
+              <circle cx="36" cy="36" r="20" stroke="#e2e2e2" stroke-width="1.2"/>
+              <path d="M27 40 L27 30 M36 40 L36 24 M45 40 L45 33" stroke="#8a6d1f" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M22 24 L30 18 L38 22 L50 14" stroke="#8a6d1f" stroke-width="1.4" fill="none"/>
+              <circle cx="50" cy="14" r="2.4" fill="#8a6d1f"/>
+            </svg>
+          </div>
+          <div class="role">GEO-продвижение</div>
+          <h3>Aurum Rank</h3>
+          <p class="aud-biz">Продвигает бизнес в ответах нейросетей — ChatGPT, Perplexity, AI-поиск в Google — чтобы вас рекомендовали, а не только находили в поиске.</p>
+          <p class="aud-clinic">Продвигает клинику в ответах нейросетей — ChatGPT, Perplexity, AI-поиск в Google — чтобы вас рекомендовали, а не только находили в поиске.</p>
+          <button class="demo-toggle" type="button">Смотреть демо <span class="demo-arrow">▾</span></button>
+          <div class="agent-demo"><div class="agent-demo-inner"><div class="demo-metric-row"><div class="demo-metric"><b>+</b><span>упоминаний в ответах AI</span></div><div class="demo-metric"><b>↑</b><span>позиции в AI-поиске</span></div></div></div></div>
+        </div>
+
+        <div class="agent-card aud-clinic">
+          <div class="agent-icon-wrap icon-guide">
+            <svg viewBox="0 0 72 72" fill="none">
+              <circle cx="36" cy="26" r="9" stroke="#8a6d1f" stroke-width="1.4"/>
+              <path d="M18 56 C18 45 26 39 36 39 C46 39 54 45 54 56" stroke="#8a6d1f" stroke-width="1.4"/>
+              <path class="check-path" d="M30 26 L34 30 L43 20" stroke="#8a6d1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+          <div class="role">Личный консультант пациента</div>
+          <h3>Aurum Guide</h3>
+          <p>Ведёт пациента индивидуально от первого вопроса до записи на приём — помнит контекст разговора и подбирает решение под его запрос.</p>
+          <button class="demo-toggle" type="button">Смотреть демо <span class="demo-arrow">▾</span></button>
+          <div class="agent-demo"><div class="agent-demo-inner"><div class="bubble bubble-in mini">Мне подходит что-то из бюджетных вариантов</div><div class="bubble bubble-out mini">Помню, вы говорили про сроки — подберу варианты, которые впишутся и в бюджет, и в дедлайн.</div></div></div>
         </div>
 
       </div>
@@ -779,7 +841,7 @@
 
   <section id="how">
     <div class="wrap">
-      <div class="dash-split reveal">
+      <div class="dash-split reveal aud-clinic">
         <div class="dash-card">
           <div class="dash-row">
             <div class="name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Принято пациентов</div>
@@ -815,6 +877,42 @@
           </ul>
         </div>
       </div>
+      <div class="dash-split reveal aud-biz">
+        <div class="dash-card">
+          <div class="dash-row">
+            <div class="name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Обработано заявок</div>
+            <div class="dash-bar-track"><div class="dash-bar-fill" style="--w:88%"></div></div>
+            <div class="val">88%</div>
+          </div>
+          <div class="dash-row">
+            <div class="name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>Повторные обращения</div>
+            <div class="dash-bar-track"><div class="dash-bar-fill" style="--w:64%"></div></div>
+            <div class="val">64%</div>
+          </div>
+          <div class="dash-row">
+            <div class="name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Допродажи и передача лидов</div>
+            <div class="dash-bar-track"><div class="dash-bar-fill" style="--w:41%"></div></div>
+            <div class="val">41%</div>
+          </div>
+          <div class="dash-row">
+            <div class="name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 17.27 6.18 3.73-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>Рейтинг и отзывы</div>
+            <div class="dash-bar-track"><div class="dash-bar-fill" style="--w:76%"></div></div>
+            <div class="val">76%</div>
+          </div>
+          <p style="font-size:12px; color:var(--ink-faint); margin-top:10px;">Пример интерфейса дашборда, цифры иллюстративные.</p>
+        </div>
+        <div>
+          <div class="eyebrow">Пример: дашборд для бизнеса</div>
+          <h2 style="font-size:clamp(26px,3vw,34px); margin-bottom:16px;">Видно, кто из сотрудников реально приносит результат</h2>
+          <p style="color:var(--ink-dim); font-size:16px; margin-bottom:10px;">Aurum Radar собирает данные из CRM и каналов в один дашборд по каждому сотруднику или менеджеру. Ниже — общий вид для сферы услуг; под конкретную отрасль метрики настраиваются индивидуально.</p>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Обработанные заявки и повторные обращения</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Допродажи и передача лидов между менеджерами</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Отзывы, активность в соцсетях и обучение сотрудников</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Финансовый план менеджера — % выполнения по сделкам и выручке</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -825,9 +923,9 @@
         <h2>От звонка до работающего агента — без айти-проекта на полгода</h2>
       </div>
       <div class="steps stagger reveal">
-        <div class="step-card"><div class="step-num">1</div><h3>Обсуждаем задачи бизнеса</h3><p>15-минутный созвон в WhatsApp — разбираем, где теряются клиенты.</p><div class="step-line"></div></div>
+        <div class="step-card"><div class="step-num">1</div><h3 class="aud-biz">Обсуждаем задачи бизнеса</h3><h3 class="aud-clinic">Обсуждаем задачи клиники</h3><p class="aud-biz">15-минутный созвон в WhatsApp — разбираем, где теряются клиенты.</p><p class="aud-clinic">15-минутный созвон в WhatsApp — разбираем, где теряются пациенты.</p><div class="step-line"></div></div>
         <div class="step-card"><div class="step-num">2</div><h3>Настраиваем агента</h3><p>Подбираем нужных агентов и настраиваем логику под ваши процессы и CRM.</p><div class="step-line"></div></div>
-        <div class="step-card"><div class="step-num">3</div><h3>Подключаем каналы</h3><p>Instagram, WhatsApp, Telegram и сайт — клиенты пишут туда, куда привыкли.</p><div class="step-line"></div></div>
+        <div class="step-card"><div class="step-num">3</div><h3>Подключаем каналы</h3><p class="aud-biz">Instagram, WhatsApp, Telegram и сайт — клиенты пишут туда, куда привыкли.</p><p class="aud-clinic">Instagram, WhatsApp, Telegram и сайт — пациенты пишут туда, куда привыкли.</p><div class="step-line"></div></div>
         <div class="step-card"><div class="step-num">4</div><h3>Тестируем и запускаем</h3><p>Проверяем сценарии вместе с вами, затем агент выходит в реальную работу.</p></div>
       </div>
     </div>
@@ -838,13 +936,14 @@
       <div class="cta-banner">
         <span class="tag">Первая консультация — бесплатно</span>
         <h2>Готовы узнать, сколько заявок теряет ваш бизнес прямо сейчас?</h2>
-        <p>15 минут в WhatsApp — и вы поймёте, какой из 8 агентов Aurum AI решит вашу задачу быстрее всего.</p>
+        <p class="aud-biz">15 минут в WhatsApp — и вы поймёте, какой из 8 агентов Aurum AI решит вашу задачу быстрее всего.</p>
+        <p class="aud-clinic">15 минут в WhatsApp — и вы поймёте, какой из 9 агентов Aurum AI решит вашу задачу быстрее всего.</p>
         <a class="btn btn-primary" href="https://wa.me/77075058834?text=Здравствуйте!%20Хочу%20узнать%20про%20Aurum%20AI%20для%20моего%20бизнеса" target="_blank" rel="noopener">Написать в WhatsApp</a>
       </div>
     </div>
   </section>
 
-  <section id="case">
+  <section id="case" class="aud-clinic">
     <div class="wrap">
       <div class="case reveal">
         <div>
@@ -869,16 +968,17 @@
       </div>
       <div class="calc reveal">
         <div>
-          <h3>Прикиньте нагрузку бизнеса</h3>
+          <h3 class="aud-biz">Прикиньте нагрузку бизнеса</h3>
+          <h3 class="aud-clinic">Прикиньте нагрузку клиники</h3>
           <p>Подвиньте ползунок — покажем, какой формат обычно подходит для такого потока обращений.</p>
           <div class="slider-wrap">
-            <div class="slider-label"><span>Обращений клиентов в месяц</span><b id="calcVal">150</b></div>
+            <div class="slider-label"><span class="aud-biz">Обращений клиентов в месяц</span><span class="aud-clinic">Обращений пациентов в месяц</span><b id="calcVal">150</b></div>
             <input type="range" min="20" max="500" value="150" step="10" id="calcSlider">
           </div>
         </div>
         <div class="calc-tier">
           <div class="tier-name" id="tierName">Средняя нагрузка</div>
-          <p id="tierDesc">Обычно хватает 2–3 агентов: консультант, менеджер записи и рассыльщик.</p>
+          <p id="tierDesc">Обычно хватает 2–3 агентов: консультант, колл-центр и рассыльщик.</p>
           <a class="btn btn-primary" href="https://wa.me/77075058834?text=Здравствуйте!%20Хочу%20посчитать%20стоимость%20Aurum%20AI%20для%20моего%20бизнеса" target="_blank" rel="noopener">Посчитать точно в WhatsApp</a>
         </div>
       </div>
@@ -890,6 +990,7 @@
       <div class="section-head reveal">
         <div class="eyebrow">Отзывы</div>
         <h2>Что говорят клиенты</h2>
+        <p class="aud-biz" style="color:var(--ink-dim); font-size:15px; margin-top:6px;">Пока все подтверждённые отзывы — от клиник, где Aurum AI работает дольше всего. Сценарии и метрики ниже так же переносятся на другой бизнес.</p>
       </div>
       <div class="testi-track reveal" id="testiTrack">
         <div class="testi-card anon">
@@ -969,7 +1070,7 @@
         </div>
         <div class="faq-item">
           <div class="faq-q">В каких каналах работает Aurum AI? <span class="plus">+</span></div>
-          <div class="faq-a"><p>Instagram, WhatsApp, Telegram и чат на сайте — везде, где ваши клиенты уже привыкли писать.</p></div>
+          <div class="faq-a"><p class="aud-biz">Instagram, WhatsApp, Telegram и чат на сайте — везде, где ваши клиенты уже привыкли писать.</p><p class="aud-clinic">Instagram, WhatsApp, Telegram и чат на сайте — везде, где ваши пациенты уже привыкли писать.</p></div>
         </div>
         <div class="faq-item">
           <div class="faq-q">Сколько времени занимает запуск? <span class="plus">+</span></div>
@@ -1037,6 +1138,25 @@
 </footer>
 
 <script>
+  // Audience toggle: "для бизнеса" / "для клиник" — switches content across
+  // the whole page (hero stat, agents intro, dashboard example, case study,
+  // testimonials note) via body[data-audience] + .aud-biz/.aud-clinic CSS.
+  (function() {
+    function applyAudience(aud) {
+      document.body.setAttribute('data-audience', aud);
+      document.querySelectorAll('.aud-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-aud') === aud);
+      });
+      try { localStorage.setItem('aurumAudience', aud); } catch (e) {}
+    }
+    let saved = 'biz';
+    try { saved = localStorage.getItem('aurumAudience') || 'biz'; } catch (e) {}
+    applyAudience(saved === 'clinic' ? 'clinic' : 'biz');
+    document.querySelectorAll('.aud-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyAudience(btn.getAttribute('data-aud')));
+    });
+  })();
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1075,10 +1195,10 @@
     calcVal.textContent = v;
     if (v < 100) {
       tierName.textContent = 'Стартовая нагрузка';
-      tierDesc.textContent = 'Обычно достаточно 1–2 агентов: консультант и менеджер записи.';
+      tierDesc.textContent = 'Обычно достаточно 1–2 агентов: консультант и колл-центр.';
     } else if (v < 300) {
       tierName.textContent = 'Средняя нагрузка';
-      tierDesc.textContent = 'Обычно хватает 2–3 агентов: консультант, менеджер записи и рассыльщик.';
+      tierDesc.textContent = 'Обычно хватает 2–3 агентов: консультант, колл-центр и рассыльщик.';
     } else {
       tierName.textContent = 'Высокая нагрузка';
       tierDesc.textContent = 'Пригодится полный набор: продажи, аналитика, контроль качества и SMM.';
@@ -1250,7 +1370,7 @@
   });
   closeBtn.addEventListener('click', () => panel.classList.remove('open'));
 
-    function escapeHtml(str) {
+  function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
@@ -1263,7 +1383,8 @@
       return '<a href="' + safeUrl + '" target="_blank" rel="noopener noreferrer">' + safeUrl + '</a>';
     });
   }
-    function addMsg(role, text) {
+
+  function addMsg(role, text) {
     const el = document.createElement('div');
     el.className = 'aiw-msg ' + (role === 'user' ? 'user' : 'bot');
     if (role === 'user') {
@@ -1275,6 +1396,7 @@
     body.scrollTop = body.scrollHeight;
     return el;
   }
+
   function showTyping() {
     const el = document.createElement('div');
     el.className = 'aiw-msg bot typing';
@@ -1327,6 +1449,104 @@
     input.style.height = 'auto';
     input.style.height = Math.min(input.scrollHeight, 100) + 'px';
   });
+})();
+</script>
+
+<style>
+  .lp-overlay{ position:fixed; inset:0; background:rgba(10,10,10,0.55); display:none; align-items:center; justify-content:center; z-index:10000; padding:20px; }
+  .lp-overlay.open{ display:flex; }
+  .lp-card{ position:relative; background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); box-shadow:var(--shadow); max-width:380px; width:100%; padding:32px 28px 28px; text-align:center; animation:lpIn .3s ease; }
+  @keyframes lpIn{ from{opacity:0; transform:translateY(12px) scale(.98);} to{opacity:1; transform:translateY(0) scale(1);} }
+  .lp-close{ position:absolute; top:12px; right:14px; background:none; border:none; font-size:22px; line-height:1; color:var(--ink-faint); cursor:pointer; padding:4px; }
+  .lp-close:hover{ color:var(--ink); }
+  .lp-title{ font-family:'Montserrat',sans-serif; font-size:20px; font-weight:800; margin-bottom:10px; }
+  .lp-text{ font-size:14px; color:var(--ink-dim); line-height:1.5; margin-bottom:20px; }
+  .lp-input{ width:100%; padding:12px 14px; border:1px solid var(--card-border); border-radius:10px; font-size:14px; font-family:inherit; margin-bottom:10px; outline:none; transition:border-color .2s ease; }
+  .lp-input:focus{ border-color:var(--gold); }
+  .lp-submit{ width:100%; padding:13px; border:none; border-radius:10px; background:linear-gradient(135deg, var(--gold-bright), var(--gold-deep)); color:#fff; font-weight:700; font-size:14px; font-family:inherit; cursor:pointer; margin-top:6px; transition:transform .2s ease, box-shadow .2s ease; }
+  .lp-submit:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(150,105,44,0.36); }
+  .lp-submit:disabled{ opacity:.6; cursor:default; transform:none; box-shadow:none; }
+  .lp-error{ font-size:12.5px; color:#b03a2e; margin-top:12px; line-height:1.5; }
+  .lp-error a{ color:var(--gold-deep); font-weight:700; text-decoration:underline; }
+  .lp-success-icon{ width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg, var(--gold-bright), var(--gold-deep)); color:#fff; font-size:26px; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; }
+  @media (max-width:480px){ .lp-card{ padding:26px 20px 22px; } }
+</style>
+
+<div class="lp-overlay" id="leadPopupOverlay">
+  <div class="lp-card">
+    <button class="lp-close" id="leadPopupClose" aria-label="Закрыть">&times;</button>
+    <div id="leadPopupForm">
+      <h3 class="lp-title">Хотите своего AI-агента?</h3>
+      <p class="lp-text">Оставьте контакт — мы свяжемся с вами и обсудим, как Aurum AI может закрывать заявки в вашем бизнесе.</p>
+      <input type="text" id="leadName" class="lp-input" placeholder="Ваше имя">
+      <input type="text" id="leadContact" class="lp-input" placeholder="Телефон или WhatsApp *">
+      <button class="lp-submit" id="leadSubmit">Оставить заявку</button>
+      <div class="lp-error" id="leadError" style="display:none;">Не получилось отправить. Напишите нам, пожалуйста, в <a href="https://wa.me/77075058834" target="_blank" rel="noopener">WhatsApp</a> напрямую.</div>
+    </div>
+    <div id="leadPopupSuccess" class="lp-success" style="display:none;">
+      <div class="lp-success-icon">✓</div>
+      <h3 class="lp-title">Спасибо!</h3>
+      <p class="lp-text">Мы получили вашу заявку и свяжемся с вами в ближайшее время.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const overlay = document.getElementById('leadPopupOverlay');
+  if (!overlay) return;
+  const closeBtn = document.getElementById('leadPopupClose');
+  const nameInput = document.getElementById('leadName');
+  const contactInput = document.getElementById('leadContact');
+  const submitBtn = document.getElementById('leadSubmit');
+  const errorEl = document.getElementById('leadError');
+  const formEl = document.getElementById('leadPopupForm');
+  const successEl = document.getElementById('leadPopupSuccess');
+
+  function closePopup() {
+    overlay.classList.remove('open');
+    sessionStorage.setItem('leadPopupShown', '1');
+  }
+
+  function openPopup() {
+    if (sessionStorage.getItem('leadPopupShown')) return;
+    const aiPanel = document.getElementById('aiWidgetPanel');
+    if (aiPanel && aiPanel.classList.contains('open')) return;
+    overlay.classList.add('open');
+    sessionStorage.setItem('leadPopupShown', '1');
+  }
+
+  setTimeout(openPopup, 18000);
+
+  closeBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closePopup(); });
+
+  async function submitLead() {
+    const contact = contactInput.value.trim();
+    if (!contact) {
+      contactInput.focus();
+      return;
+    }
+    submitBtn.disabled = true;
+    errorEl.style.display = 'none';
+    try {
+      const res = await fetch('/.netlify/functions/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: nameInput.value.trim(), contact })
+      });
+      if (!res.ok) throw new Error('bad status');
+      formEl.style.display = 'none';
+      successEl.style.display = 'block';
+    } catch (e) {
+      errorEl.style.display = 'block';
+      submitBtn.disabled = false;
+    }
+  }
+
+  submitBtn.addEventListener('click', submitLead);
+  contactInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitLead(); });
+  nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitLead(); });
 })();
 </script>
 
